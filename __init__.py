@@ -47,7 +47,7 @@ class PoetrySkill(MycroftSkill):
         self.speak_dialog("poetry")
         # choose style (black metal, death metal, trash metal)
         style = random.choice(self.styles)
-        path = "/home/user/mycroft-core/mycroft/skills/Facebook/styles/" + style + ".txt"
+        path = self.path + style + ".txt"
         #init dicionares
         poemFreqDict = {}
         poemProbDict = self.addToDict(path,
