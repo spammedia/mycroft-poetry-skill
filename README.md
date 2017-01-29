@@ -8,5 +8,8 @@ originally meant to make rap lyrics now makes metal lyrics, styles can be added 
 add following (or your equivalent) to config file
 
  "PoetrySkill": {
-    "path": "/home/user/mycroft-core/mycroft/skills/Poetry/styles"
+    "path": "/home/user/mycroft-core/mycroft/skills/Poetry/"
   }
+  
+  
+  this is teh folder whre you have the styles.txt and the poems will be saved
