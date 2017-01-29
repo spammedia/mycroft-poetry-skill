@@ -32,8 +32,11 @@ class PoetrySkill(MycroftSkill):
 
     def __init__(self):
         super(PoetrySkill, self).__init__(name="PoetrySkill")
-        self.styles = ["blackmetal", "deathmetal"]
-        self.path = self.config.get["path"]
+        self.styles = ["blackmetal", "deathmetal","camoes","shakespeare"]
+        self.path = self.config["path"]
+        self.minsize = 10
+        self.maxsize = 20
+        self.mode = 1
 
     def initialize(self):
         self.load_data_files(dirname(__file__))
@@ -47,7 +50,8 @@ class PoetrySkill(MycroftSkill):
         self.speak_dialog("poetry")
         # choose style (black metal, death metal, trash metal)
         style = random.choice(self.styles)
-        path = self.path + style + ".txt"
+       # style = "shakespeare"
+        path = self.path + "/styles/" + style + ".txt"
         #init dicionares
         poemFreqDict = {}
         poemProbDict = self.addToDict(path,
@@ -59,13 +63,22 @@ class PoetrySkill(MycroftSkill):
 
         #generate poem
         poem = self.makepoem(startWord, poemProbDict)
+        #speak
         self.speak(poem)
+        #save
+        path = self.path + "/results/" + style + "_" + poem[:20] + ".txt"
+        wfile = open(path, "w")
+        wfile.write(poem)
+        wfile.close()
 
     # freqDict is a dict of dict containing frequencies
     def addToDict(self, fileName, freqDict):
         f = open(fileName, 'r')
-        words = re.sub("\n", " \n", f.read()).lower().split(' ')
-
+        # phrases
+        if self.mode == 1:
+            words = re.sub("\n", " \n", f.read()).lower().split('\n')
+        else:
+            words = re.sub("\n", " \n", f.read()).lower().split(' ')
         # count frequencies curr -> succ
         for curr, succ in zip(words[1:], words[:-1]):
             # check if curr is already in the dict of dicts
@@ -100,10 +113,16 @@ class PoetrySkill(MycroftSkill):
                     return succ
             return random.choice(list(probDict.keys()))
 
-    def makepoem(self, curr, probDict, T=50):
+    def makepoem(self, curr, probDict):
+        if self.mode == 1:
+            T = random.choice(range(self.minsize,self.maxsize))
+        else:
+            T = random.choice(range(self.minsize*20, self.maxsize*5))
         poem = [curr]
         for t in range(T):
             poem.append(self.markov_next(poem[-1], probDict))
+            if self.mode == 1:
+                poem.append("\n")
         return " ".join(poem)
 
     def stop(self):
