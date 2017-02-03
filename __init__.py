@@ -32,7 +32,7 @@ class PoetrySkill(MycroftSkill):
 
     def __init__(self):
         super(PoetrySkill, self).__init__(name="PoetrySkill")
-        self.styles = ["blackmetal", "deathmetal","camoes","shakespeare"]
+        self.styles = ["blackmetal", "deathmetal","scifi","viking"]
         self.path = self.config["path"]
         self.minsize = 10
         self.maxsize = 20
@@ -41,89 +41,89 @@ class PoetrySkill(MycroftSkill):
     def initialize(self):
         self.load_data_files(dirname(__file__))
 
+        viking_poetry_intent = IntentBuilder("ReciteVikingPoetryIntent") \
+            .require("viking").build()
+        self.register_intent(viking_poetry_intent,
+                             self.handle_viking_poetry_intent)
+
+        gore_poetry_intent = IntentBuilder("ReciteGorePoetryIntent") \
+            .require("gore").build()
+        self.register_intent(gore_poetry_intent,
+                             self.handle_gore_poetry_intent)
+
+        satanic_poetry_intent = IntentBuilder("ReciteSatanicPoetryIntent") \
+            .require("satanic").build()
+        self.register_intent(satanic_poetry_intent,
+                             self.handle_satanic_poetry_intent)
+
+        sci_poetry_intent = IntentBuilder("ReciteSciFiPoetryIntent") \
+            .require("science").build()
+        self.register_intent(sci_poetry_intent,
+                             self.handle_science_poetry_intent)
+
         poetry_intent = IntentBuilder("RecitePoetryIntent")\
             .require("poetry").build()
         self.register_intent(poetry_intent,
                              self.handle_poetry_intent)
 
+    def handle_science_poetry_intent(self, message):
+        style = "scifi"
+        poem = self.poetry(style)
+        self.save(style, poem)
+        # speak
+        self.speak(poem)
+
+    def handle_gore_poetry_intent(self, message):
+        style = "deathmetal"
+        poem = self.poetry(style)
+        self.save(style, poem)
+        # speak
+        self.speak(poem)
+
+    def handle_viking_poetry_intent(self, message):
+        style = "viking"
+        poem = self.poetry(style)
+        self.save(style, poem)
+        # speak
+        self.speak(poem)
+
+    def handle_satanic_poetry_intent(self, message):
+        style = "blackmetal"
+        poem = self.poetry(style)
+        self.save(style,poem)
+        # speak
+        self.speak(poem)
+
     def handle_poetry_intent(self, message):
-        self.speak_dialog("poetry")
+        #self.speak_dialog("poetry")
         # choose style (black metal, death metal, trash metal)
         style = random.choice(self.styles)
-       # style = "shakespeare"
+        poem = self.poetry(style)
+        self.save(style,poem)
+        # speak
+        self.speak(poem)
+
+
+    def poetry(self, style):
+        # style = "shakespeare"
         path = self.path + "/styles/" + style + ".txt"
-        #init dicionares
+        # init dicionares
         poemFreqDict = {}
-        poemProbDict = self.addToDict(path,
-                                          poemFreqDict)
+        poemProbDict = addToDict(path, poemFreqDict, self.mode)
         # choose seed word
         f = open(path, 'r')
         self.words = re.sub("\n", " \n", f.read()).lower().split(' ')
         startWord = random.choice(self.words)
 
-        #generate poem
-        poem = self.makepoem(startWord, poemProbDict)
-        #speak
-        self.speak(poem)
-        #save
+        # generate poem
+        return makepoem(startWord, poemProbDict, self.mode, self.minsize, self.maxsize)
+
+    def save(self, style, poem):
+        # save
         path = self.path + "/results/" + style + "_" + poem[:20] + ".txt"
         wfile = open(path, "w")
         wfile.write(poem)
         wfile.close()
-
-    # freqDict is a dict of dict containing frequencies
-    def addToDict(self, fileName, freqDict):
-        f = open(fileName, 'r')
-        # phrases
-        if self.mode == 1:
-            words = re.sub("\n", " \n", f.read()).lower().split('\n')
-        else:
-            words = re.sub("\n", " \n", f.read()).lower().split(' ')
-        # count frequencies curr -> succ
-        for curr, succ in zip(words[1:], words[:-1]):
-            # check if curr is already in the dict of dicts
-            if curr not in freqDict:
-                freqDict[curr] = {succ: 1}
-            else:
-                # check if the dict associated with curr already has succ
-                if succ not in freqDict[curr]:
-                    freqDict[curr][succ] = 1;
-                else:
-                    freqDict[curr][succ] += 1;
-
-        # compute percentages
-        probDict = {}
-        for curr, currDict in freqDict.items():
-            probDict[curr] = {}
-            currTotal = sum(currDict.values())
-            for succ in currDict:
-                probDict[curr][succ] = currDict[succ] / currTotal
-        return probDict
-
-    def markov_next(self, curr, probDict):
-        if curr not in probDict:
-            return random.choice(list(probDict.keys()))
-        else:
-            succProbs = probDict[curr]
-            randProb = random.random()
-            currProb = 0.0
-            for succ in succProbs:
-                currProb += succProbs[succ]
-                if randProb <= currProb:
-                    return succ
-            return random.choice(list(probDict.keys()))
-
-    def makepoem(self, curr, probDict):
-        if self.mode == 1:
-            T = random.choice(range(self.minsize,self.maxsize))
-        else:
-            T = random.choice(range(self.minsize*20, self.maxsize*5))
-        poem = [curr]
-        for t in range(T):
-            poem.append(self.markov_next(poem[-1], probDict))
-            if self.mode == 1:
-                poem.append("\n")
-        return " ".join(poem)
 
     def stop(self):
         pass
@@ -131,3 +131,57 @@ class PoetrySkill(MycroftSkill):
 
 def create_skill():
     return PoetrySkill()
+
+# freqDict is a dict of dict containing frequencies
+def addToDict(fileName, freqDict, mode = 1):
+    f = open(fileName, 'r')
+    # phrases
+    if mode == 1:
+        words = re.sub("\n", " \n", f.read()).lower().split('\n')
+    else:
+        words = re.sub("\n", " \n", f.read()).lower().split(' ')
+    # count frequencies curr -> succ
+    for curr, succ in zip(words[1:], words[:-1]):
+        # check if curr is already in the dict of dicts
+        if curr not in freqDict:
+            freqDict[curr] = {succ: 1}
+        else:
+            # check if the dict associated with curr already has succ
+            if succ not in freqDict[curr]:
+                freqDict[curr][succ] = 1;
+            else:
+                freqDict[curr][succ] += 1;
+
+    # compute percentages
+    probDict = {}
+    for curr, currDict in freqDict.items():
+        probDict[curr] = {}
+        currTotal = sum(currDict.values())
+        for succ in currDict:
+            probDict[curr][succ] = currDict[succ] / currTotal
+    return probDict
+
+def markov_next( curr, probDict):
+    if curr not in probDict:
+        return random.choice(list(probDict.keys()))
+    else:
+        succProbs = probDict[curr]
+        randProb = random.random()
+        currProb = 0.0
+        for succ in succProbs:
+            currProb += succProbs[succ]
+            if randProb <= currProb:
+                return succ
+        return random.choice(list(probDict.keys()))
+
+def makepoem(curr, probDict, mode=1, minsize=8, maxsize=20):
+    if mode == 1:
+        T = random.choice(range(minsize,maxsize))
+    else:
+        T = random.choice(range(minsize*20, maxsize*5))
+    poem = [curr]
+    for t in range(T):
+        poem.append(markov_next(poem[-1], probDict))
+        if mode == 1:
+            poem.append(",\n")
+    return " ".join(poem)
