@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Mycroft Core.  If not, see <http://www.gnu.org/licenses/>.
 
-from os.path import dirname
+from os.path import dirname, realpath
 import random
 import re
 
@@ -33,7 +33,7 @@ class PoetrySkill(MycroftSkill):
     def __init__(self):
         super(PoetrySkill, self).__init__(name="PoetrySkill")
         self.styles = ["blackmetal", "deathmetal","scifi","viking"]
-        self.path = self.config["path"]
+        self.path = dirname(realpath(__file__))
         self.minsize = 10
         self.maxsize = 20
         self.mode = 1
