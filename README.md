@@ -21,7 +21,6 @@ a markov chain class is provided, it can save and read models from file in .json
 
 # TODO
 
-- regex for any style instead of intent for each
 - format output better (no single word lines?)
 - make output rhyme
 

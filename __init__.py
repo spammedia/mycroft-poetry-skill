@@ -58,7 +58,7 @@ class PoetrySkill(MycroftSkill):
                              self.handle_science_poetry_intent)
 
         poetry_intent = IntentBuilder("RecitePoetryIntent")\
-            .require("poetry").build()
+            .require("poetry").optionally("Style").build()
         self.register_intent(poetry_intent,
                              self.handle_poetry_intent)
 
