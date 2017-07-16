@@ -1,7 +1,9 @@
 # mycroft-poetry-skill
-make poems/lyrics based on Hidden Markov Model
+
+make poems/lyrics with markov chains
 
 # usage:
+
 - recite a poem
 - recite viking poetry
 - recite evil poem
@@ -9,122 +11,327 @@ make poems/lyrics based on Hidden Markov Model
 - write scifi poem
 - recite shakespeare poetry
 
+# adding  new styles
+
+a markov chain class is provided, it can save and read models from file in .json format
+
+- create a .txt corpus
+- change generate_style.py to use that txt and build a markoc chain.json
+- new markov chain ready!
+
+# TODO
+
+- regex for any style instead of intent for each
+
 ## examples:
-**sci fi poem**
-```
- ,
- spontaneous is my grasp on a world endless-  ,
- we seek things to fill the hole  ,
- we bit the apple, instead of being seeded  ,
-     of the angle of starting worked out in the sequel.  ,
-     in the form for the tension, and this is sufficient  ,
- spring flowers, autumn’s riot till winter comes;  ,
- magellan, perhaps not the first to sail around the globe  ,
-   , the little shining light is enough to set us free.  ,
- even this lowly creature up out of the pen  ,
- see time trace a new beat,  ,
-     in working the problem the first thing of course is  ,
-   sometimes we are afraid to walk alone in the dark,  ,
-    shining its powerful light it never forgets,  ,
- of  fractals or measurement,  ,
- imaginative and sorrowful, and even at times sci-fi.  ,
-     the chain undergoes a distorting convulsion,  ,
-     the chain undergoes a distorting convulsion,  ,
- a singularity of beauty are you  , ,
-```
-**evil poem**
-```
-ancients wings of death are wrapped around me  ,
- ashtart, ashtart the fire son  ,
- blasphemy  ,
- summoning ancient gods  ,
- serving satan and his demons for the heathen rise.  ,
- on this night of a mystic moon...  ,
- unholy rites of blood and knives  ,
- unholy victory!!!  ,
- black magic force takes it's course  ,
- bring the final hour  ,
- shadows covering temples of doom.  ,
- blood and flesh we shed with might.  ,
- fell the knife slice through your life!  ,
-```
-**gore poem**
-```
 
-the rotten  ,
- you'll get more strength  ,
- i open up the coffin  ,
- icons shatter with burning holes  ,
- arriving from beyond  ,
- worms  ,
- out from the chambers  ,
- cometh the rightful kings of the highest halls  ,
- nose sewn to an upper leg  ,
- for the lights  ,
- buried dead i've spiritually infected  ,
- decaying bodies left unburied  ,
- blood explodes from every hole  ,
- a thousand ways to kill  ,
- coming of flood  ,
- virgin, untouched skin  , ,
-```
-**viking poem**
-```
-the and summon gods by sacrifice in blood  ,
- one we were scum of the earth  ,
- came charging down the beach  ,
- marching down the left hand path  ,
- attacking us in the mid-day sun  ,
- the truth unfolds  ,
- then i knew that my life was saved  ,
- though spears may spare his life  ,
- consumed by my hate  ,
- we'll never bend untill the end  ,
- i'll stand my ground!  ,
- on these southern battlefields  ,
- i won't play the well-adjusted role  ,
- i engrave the blade with magic runes  ,
- so death finally came to him  ,  ,
-```
-**love poem**
-```
-and then face a new voice with openness of mind  ,
- humble my heart, feelings aside,  ,
- our bodies entwined  ,
- if fire starts all love  ,
- help me not to make assumptions,  ,
- i had no emotions and no love to provide  ,
- to unlock the songs and melodies.  ,
- and shares all joys and sorrows.  ,
- there is nothing left.  ,
- love is there, i thought, in our care  ,
- let them match in your love through all i say and do,  
- don't leave me alone  ,
-```
+the corpus used is small, unprocessed, and randomly selected as a Proof of concept, please contribute with more styles / better data!
+
+** black metal **
+
+        prince of night!
+        summoned I thee
+        winds high,
+        the of all kings I swear to thee
+        pagan death.
+
+        blood your rising black blood lonesome flocking of me the strength
+        legion name
+        these of of my master ruler of hell.
+
+        sky of night.
+
+        are wrapped around me
+        the of Fly, cult thee
+        feel lambs of God
+        my of only the flesh...
+
+        black eternal raise proud dead!
+        hell
+        cosmic me ancient of evil reigns unholy
+        of lies at winds as I begin to hear the call
+
+** scifi **
 
 
+        While  Guidance Forever is of the local bar
+        summons lovingly his Solar Princess sits beside him wearing her back at the patterns of elements
+        infinite unraveled
+        of K.
 
-## configuration
-originally meant to make rap lyrics now makes metal lyrics, styles can be added by collecintg lyrics and making a new txt file and adding the name to init.py, should have put this in cnfig file but im lazy :P
+        in copper with astounding accuracy
+        twirl.
 
-add following (or your equivalent) to config file
+        before the human ancestry
+        older, thanks
+        with
+        could have fewer natural enemies:
+        our atoms, relaxed
+        I'd fly at your
+        R, in professions of elements
+        of sitting in ancient men could lift such a sci-fi movie but
+        that
+        clear passage.
 
- "PoetrySkill": {
-    "path": "/home/user/mycroft-core/mycroft/skills/Poetry/"
-  }
-  
-  
-  this is teh folder whre you have the styles.txt and the poems will be saved
-## Authors
+        run and go,
+        words will be found after these two conditions we go further exploration suggests
+        blue and closer to be done
+        When duly combined with the
 
-* **Jarbas AI** - [JarbasAI](https://github.com/JarbasAI)
+** viking **
 
-## License
+        Fire from the earth
+        will our Mimer or and lies lands
+        hands
+        in ship lay war
+        there in sacrifice tumble show his son
+        the this he fire
+        bow
+        be
+        from Asars force
+        with of charge
+        side
+        the screams agony
+        in return
+        your choose
+        the to blood
+        to through attack
+        home to they waves
+        the from you're king
 
-This project is licensed under the free for all license
 
-## Acknowledgments
+** death metal **
 
-* Mycroft-Core - Thankx for making an open-source AI!
-* based on the following video: https://www.youtube.com/watch?v=yE0dcDNRZjw
+        sexual addiction
+        me to lock me decayed
+        your victim
+        through death
+        of disintegration
+        blood runs down - turning
+        rats
+        of God will survive
+        with diarrhea?
+        cadaver butchery
+        from fear
+        my hands nerves are mine
+        you die
+        to killing
+        burned, stabbed, scorched and daughters
+        more
+        of devastation
+        to spew, putrefaction
+        a rabbid, cat is seen the stumps
+        organs now found lust
+        them or religion
+        of the crypts of a white light and I don't give a frosty path to shove it started to choose or was frost
+        through with strength
+        signs from the last
+        severe
+        seeking for
+        light before we will come
 
+
+** inspirational **
+
+            those who you happy
+            up
+            powerful,
+            your heart
+            than the comfort of struggle or give what you carry you already have
+            a mountain before you
+            and your smile reflects
+            to �you�
+            you�ll go,
+            always be setbacks and after
+            quality, a step closer
+            you.
+
+            deep
+            get
+            are perfectly imperfect
+            Sweetest
+            forget to your best you
+            your dreams
+            clear of Victory
+            talking,
+            anything
+            a sparkle
+            less arguing,
+            the best you
+            ourselves to be setbacks and live your eyes
+            share a nectar
+            of all is counted sweetest
+            that all is a nectar
+            beauty isn�t skin deep
+            ever think that all your best you
+            important
+
+** life **
+
+        Precious life, through magic, nor a sad filled with a mistake.
+        of storytellers, definitely earn.
+
+        is beautiful, we need,
+        your true sensation.
+
+        could we are long,
+        never, ever alone,
+        Takes Courage
+        life, I'll take,
+        your painting, don't move with no love, what is beautiful, we all share,
+        we teach us, more precious, than all know,
+        has so hard, and go with no love, has so hard, and you'll be loved.
+
+        moment, live it, is filled year!
+        prone.
+
+        joy, each day is once, or maybe twice,
+        others, they'll reveal as teenager, may bring sorrow and in the eyes,
+
+** love **
+
+        A love you are near,
+        to say this,
+        near,
+        true angel of Love
+        sing when you is Pure
+        for me.
+
+        to say
+        if we met
+        and ever.
+
+        talking to keep
+        I can still see your lips so purely divine.
+
+        snow,
+        in love.
+
+        I'm not letting you I guarantee
+        tender yet tight,
+        I will ever need.
+
+        when you is Pure
+        a love so complete.
+
+        still see your eyes gleam
+        and I feel so sweet,
+        say
+        eternally
+        this heart of my hand
+        be with all of my heart
+        I knew the true angel of my life.
+
+        go through
+        talking to god above
+
+
+** friends **
+
+        better and grace.
+        apart you who means to one another
+        way of life
+        your hero and so restless
+        of life
+        hours in Life
+        why I would love to raise a friend like you whose one of deprived
+        not feel the day,
+        things change and downs
+        friends are best friend like you and through
+        you so loving and Downs
+        as you are oh pretty soul
+        to find
+        your support my life!
+        like giving up when you whose one another
+        the end
+        when I would love to stay.
+
+        that is Full of life
+        and grace.
+
+        have a spark
+        changes without reason
+        nice to
+
+** family **
+
+        people, you to climb.
+        not always mad.
+
+        enough to learn,
+        perish.
+
+        enough to reflect,
+        pain.
+
+        never know, when I love me
+        on those bandages, when something happens, together you get much we mutually send.
+
+        some moments with you, they'll be lonely and take this lightly,
+        person involved, has plenty to connect.
+
+        not just so that we will bring laughter and take this lightly,
+        life would be lonely, and take this lightly,
+        stories from January to pay.
+
+        compare.
+
+        of people that it will help you become someone great,
+        effective teacher.
+
+        thanks to give them lots of stress.
+
+        them lots of the holidays,
+
+** Camões **
+
+        salvo escapa por cima
+        havia
+        e reino e tão Ninfa tanto,
+        amor.
+
+        estar diante,
+        que mais pode a gente
+        sorte! Estranha condição!»
+        de inimigo e pescados.
+
+        sua.
+
+        as memórias Serra,
+        um amor antigo o rosto, assi lho mandara, lhe abrasasse,
+        terras conduzidos,
+        eles arribando, as naus, e de Tarifa estão terras da esperança costa acabo
+        que mandasse
+        desusados,
+        outros Tormentório,
+        suas terras da Aurora se a Africana costa acabo
+        ardente
+        cometimento alto e sojugavam
+        de Nereu,
+        do Oriente,
+        que por ir ouvindo o rumor excelente,
+        de Alexandro e guerras esforçados
+        a douta mão ta
+        julgue
+        vela pôs ou tu me esperarás,
+
+** shakespeare **
+
+        never may behold the day,
+        proceed,
+        the best quickly fell trots, my meeting unseasonable of severe;
+        subjection ere cures kill!'
+        with sonnets thyself am repeat, of thy honour's wrack;
+        for beat the loved, lies;
+        but talk and fresh nought disgrace!
+        amid ever hold,
+        creatures she were slain,
+        when which gore; with him is beauty slain,
+        gain'd stuff'd what boundeth thousand winking, dead pitiful children diapason to thoughts so in others 745
+        reason's they away;
+        peace, the thou sudden take Sin or are their own fault's books.
+
+        to and wrapp'd she or pure
+        of with the way;
+        love!--
+        lord be words digression
