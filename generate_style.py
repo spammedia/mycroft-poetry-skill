@@ -137,8 +137,8 @@ class MarkovChain:
 
         return mc
 
-style = "inspirational"
-chain = MarkovChain(1, pad=False)#.load("styles/"+style + ".json")
+style = "viking"
+chain = MarkovChain(3, pad=False)#.load("styles/"+style + ".json")
 
 with open("styles/" + style + ".txt", "r") as file:
     lines = file.readlines()

@@ -22,6 +22,8 @@ a markov chain class is provided, it can save and read models from file in .json
 # TODO
 
 - regex for any style instead of intent for each
+- format output better (no single word lines?)
+- make output rhyme
 
 ## examples:
 
@@ -80,24 +82,37 @@ the corpus used is small, unprocessed, and randomly selected as a Proof of conce
 
 ** viking **
 
-        Fire from the earth
-        will our Mimer or and lies lands
-        hands
-        in ship lay war
-        there in sacrifice tumble show his son
-        the this he fire
-        bow
-        be
-        from Asars force
-        with of charge
-        side
-        the screams agony
-        in return
-        your choose
-        the to blood
-        to through attack
-        home to they waves
-        the from you're king
+       By searing flames was Gullveig torn.
+        is in just is return gained my terrified
+        out
+        the cut the pain
+        up
+        away
+        rip in from in
+        raise bank
+        Sea
+        or let hand
+        cross few mound.
+
+        turn face stretched In summon and sea, of steel
+        me!
+        ancient force
+        glowing there there, torn three unforgiving the will know
+        left north blood time
+        never death
+        hooves
+        crave
+        wild
+        legend deadly Deathqueen's men will come here
+        will endured
+        to kneel
+        have a Valkyries skulls fear the odds
+        in raven divine
+        me
+        we certain bright sees
+        life legend he tumble too me about were from one king
+        breaks
+        night
 
 
 ** death metal **
